@@ -1,13 +1,17 @@
 # Blog builder
 
-## Installation
+## Dev scripts
 
 ```shell
-pip install -r requirements.txt
-```
+# Activate venv - do this first, per shell
+source .venv/bin/activate.fish
+
+# Install
+scripts/./install.fish
+
+# Lint
+scripts/./lint.fish
 
 ## Run tests
-
-```shell
-pytest
+scripts/./run-tests.fish
 ```
