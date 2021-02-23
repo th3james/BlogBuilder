@@ -1,15 +1,13 @@
-# Static blog generator
+# Blog builder
 
-## Directory Structure
+## Installation
 
-### blog-entries
+```shell
+pip install -r requirements.txt
+```
 
-TODO - where blog post source lives
+## Run tests
 
-### builder
-
-Application which converts post source into output
-
-### output
-
-Where current generated output lives
+```shell
+pytest
+```
