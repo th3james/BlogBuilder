@@ -1,3 +1,8 @@
+from pathlib import Path
+
+from blogbuilder.blogbuilder import BlogBuilder
+
+
 class TestIntegrationBuildBlog:
     def test_build_example_blog(self) -> None:
         """
@@ -5,4 +10,6 @@ class TestIntegrationBuildBlog:
         and an output directory
         it renders a page with the title
         """
-        assert False
+        BlogBuilder.build(
+            Path("../example-test-app/posts", "../example-test-app/templates")
+        )

@@ -1,0 +1,2 @@
+class BlogBuilder:
+    pass
