@@ -13,7 +13,7 @@ class TestIntegrationBuildBlog:
         """
         output_dir = Path("../test_output")
         try:
-            BlogBuilder.build(
+            BlogBuilder().build(
                 Path("../example-test-app/posts"),
                 Path("../example-test-app/templates"),
                 output_dir,
