@@ -1,2 +1,2 @@
 #!/usr/bin/env fish
-pytest blog-builder
+pytest blogbuilder
