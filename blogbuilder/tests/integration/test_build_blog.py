@@ -1,7 +1,7 @@
 from pathlib import Path
 from shutil import rmtree
 
-from blogbuilder.blogbuilder import BlogBuilder
+from blogbuilder.blog_builder import BlogBuilder
 
 
 class TestIntegrationBuildBlog:
