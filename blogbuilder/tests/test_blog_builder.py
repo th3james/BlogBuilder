@@ -1,27 +1,46 @@
 from pathlib import Path
-from shutil import rmtree
-from unittest import TestCase
+from unittest import TestCase, mock
+from unittest.mock import call
 
 from blogbuilder.blog_builder import BlogBuilder
+from blogbuilder.blog_renderer import BlogRenderer
+from blogbuilder.output_writer import OutputWriter
 
 
 class TestBlogBuilder(TestCase):
-    def test_creates_output_directory(self) -> None:
+    def test_loads_the_posts_then_renders_each_file(self) -> None:
         """
-        given an output directory which doesn't exist
-        it creates it
+        given a valid data, template and output directory
+        it loads the posts
+        loads the templates
+        renders the pages
+        and writes them to the output directory
         """
-        data_dir = Path("../test_output")
-        templates_dir = Path("../test_output")
-        output_dir = Path("../test_output")
+        data_dir = Path("./nope")
+        template_dir = Path("./nvm")
+        output_dir = Path("./outno")
 
-        try:
-            BlogBuilder().build(
-                data_dir,
-                templates_dir,
-                output_dir,
-            )
+        fake_file_1 = mock.Mock()
+        fake_file_2 = mock.Mock()
 
-            assert output_dir.is_dir()
-        finally:
-            rmtree(output_dir)
+        FakePostRepository = mock.Mock()
+        FakeTemplateRepository = mock.Mock()
+        FakeBlogRenderer = mock.Mock(spec=BlogRenderer)
+        FakeBlogRenderer.return_value.render_all.return_value = (
+            fake_file_1,
+            fake_file_2,
+        )
+        FakeOutputWriter = mock.Mock(spec=OutputWriter)
+
+        with mock.patch.multiple(
+            "blogbuilder.blog_builder",
+            PostRepository=FakePostRepository,
+            TemplateRepository=FakeTemplateRepository,
+            BlogRenderer=FakeBlogRenderer,
+            OutputWriter=FakeOutputWriter,
+        ):
+            BlogBuilder().build(data_dir, template_dir, output_dir)
+
+        FakeOutputWriter.return_value.write.assert_has_calls(
+            [call(fake_file_1), call(fake_file_2)]
+        )
