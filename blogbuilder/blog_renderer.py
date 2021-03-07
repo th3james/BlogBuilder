@@ -6,7 +6,6 @@ from blogbuilder.post_repository import PostRepository
 from blogbuilder.template_repository import TemplateRepository
 
 
-
 @dataclass
 class BlogRenderer:
     post_repository: PostRepository
