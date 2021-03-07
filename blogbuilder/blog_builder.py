@@ -11,7 +11,7 @@ class BlogBuilder:
         post_repository = PostRepository(data_dir)
         templates_repository = TemplateRepository(templates_dir)
 
-        output_writer = OutputWriter()
+        output_writer = OutputWriter(output_dir)
 
         for x in BlogRenderer(post_repository, templates_repository).render_all():
             output_writer.write(x)
