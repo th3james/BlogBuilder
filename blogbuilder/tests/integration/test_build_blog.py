@@ -1,10 +1,11 @@
 from pathlib import Path
 from shutil import rmtree
+from unittest import TestCase
 
 from blogbuilder.blog_builder import BlogBuilder
 
 
-class TestIntegrationBuildBlog:
+class IntegrationBuildBlogTests(TestCase):
     def test_build_example_blog(self) -> None:
         """
         given the example blog directory

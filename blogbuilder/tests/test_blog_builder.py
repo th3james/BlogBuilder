@@ -7,7 +7,7 @@ from blogbuilder.blog_renderer import BlogRenderer
 from blogbuilder.output_writer import OutputWriter
 
 
-class TestBlogBuilder(TestCase):
+class BlogBuilderTests(TestCase):
     def test_loads_the_posts_then_renders_each_file(self) -> None:
         """
         given a valid data, template and output directory
