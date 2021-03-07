@@ -17,7 +17,7 @@ class TestBlogBuilder(TestCase):
         and writes them to the output directory
         """
         data_dir = Path("./nope")
-        template_dir = Path("./nvm")
+        templates_dir = Path("./nvm")
         output_dir = Path("./outno")
 
         fake_file_1 = mock.Mock()
@@ -39,7 +39,16 @@ class TestBlogBuilder(TestCase):
             BlogRenderer=FakeBlogRenderer,
             OutputWriter=FakeOutputWriter,
         ):
-            BlogBuilder().build(data_dir, template_dir, output_dir)
+            BlogBuilder().build(data_dir, templates_dir, output_dir)
+
+        FakePostRepository.assert_called_once_with(data_dir)
+        FakeTemplateRepository.assert_called_once_with(templates_dir)
+
+        FakeBlogRenderer.assert_called_once_with(
+            FakePostRepository.return_value, FakeTemplateRepository.return_value
+        )
+
+        FakeOutputWriter.assert_called_once_with(output_dir)
 
         FakeOutputWriter.return_value.write.assert_has_calls(
             [call(fake_file_1), call(fake_file_2)]

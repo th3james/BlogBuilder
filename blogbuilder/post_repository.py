@@ -1,2 +1,6 @@
+from pathlib import Path
+
+
 class PostRepository:
-    pass
+    def __init__(self, data_dir: Path) -> None:
+        pass

@@ -1,0 +1,2 @@
+class BlogFile:
+    pass
