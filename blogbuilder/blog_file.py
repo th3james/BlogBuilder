@@ -1,2 +1,7 @@
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass
 class BlogFile:
-    pass
+    path: Path

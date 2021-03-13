@@ -12,7 +12,7 @@ class IntegrationBuildBlogTests(TestCase):
         and an output directory
         it renders a page with the title
         """
-        output_dir = Path("../test_output")
+        output_dir = Path("blogbuilder/tests/test_output")
         try:
             BlogBuilder().build(
                 Path("../example-test-app/posts"),

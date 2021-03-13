@@ -1,11 +1,14 @@
+from dataclasses import dataclass
 from pathlib import Path
 
 from blogbuilder.blog_file import BlogFile
 
 
+@dataclass
 class OutputWriter:
-    def __init__(self, output_dir: Path) -> None:
-        pass
+    output_dir: Path
 
     def write(self, file: BlogFile) -> None:
-        pass
+        output_path = self.output_dir / file.path
+        output_path.parents[0].mkdir(parents=True)
+        output_path.touch()
