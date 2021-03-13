@@ -1,5 +1,6 @@
-from typing import Iterable
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable
 
 from blogbuilder.blog_file import BlogFile
 from blogbuilder.post_repository import PostRepository
@@ -12,4 +13,4 @@ class BlogRenderer:
     template_repository: TemplateRepository
 
     def render_all(self) -> Iterable[BlogFile]:
-        pass
+        return [BlogFile(Path("index.html"))]
