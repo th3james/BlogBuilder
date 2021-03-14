@@ -22,7 +22,7 @@ class BlogRendererTest(TestCase):
         given a PostRepository with a post
         it returns a file with the post path
         """
-        post = Post(Path("fancy-post.html"))
+        post = Post(Path("fancy-post.html"), Path("fancy-post.html"))
         post_repository = mock.Mock(spec=PostRepository)
         post_repository.get_all.return_value = [post]
 
