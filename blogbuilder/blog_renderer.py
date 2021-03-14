@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, List
 
 from blogbuilder.blog_file import BlogFile
 from blogbuilder.post_repository import PostRepository
@@ -13,4 +13,7 @@ class BlogRenderer:
     template_repository: TemplateRepository
 
     def render_all(self) -> Iterable[BlogFile]:
-        return [BlogFile(Path("index.html"))]
+        files: List[BlogFile] = [BlogFile(Path("index.html"))]
+        for post in self.post_repository.get_all():
+            files.append(BlogFile(post.path))
+        return files

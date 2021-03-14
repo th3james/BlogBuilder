@@ -24,7 +24,7 @@ class BlogRendererTest(TestCase):
         """
         post = Post(Path("fancy-post.html"))
         post_repository = mock.Mock(spec=PostRepository)
-        post_repository.get_all.return_value([post])
+        post_repository.get_all.return_value = [post]
 
         blog_renderer = BlogRenderer(post_repository, mock.Mock())
         result = blog_renderer.render_all()
