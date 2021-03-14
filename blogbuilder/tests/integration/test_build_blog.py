@@ -15,8 +15,8 @@ class IntegrationBuildBlogTests(TestCase):
         output_dir = Path("blogbuilder/tests/test_output")
         try:
             BlogBuilder().build(
-                Path("../example-test-app/posts"),
-                Path("../example-test-app/templates"),
+                Path("blogbuilder/tests/example-test-app/posts"),
+                Path("blogbuilder/tests/example-test-app/templates"),
                 output_dir,
             )
 

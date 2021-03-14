@@ -11,7 +11,7 @@ class BlogRendererTest(TestCase):
         """
         it returns an enumerable containing index.html
         """
-        blog_renderer = BlogRenderer(mock.Mock(), mock.Mock())
+        blog_renderer = BlogRenderer(mock.MagicMock(), mock.Mock())
 
         result = blog_renderer.render_all()
 
