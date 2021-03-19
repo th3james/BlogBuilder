@@ -8,8 +8,8 @@ from blogbuilder.output_writer import OutputWriter
 
 class BlogBuilder:
     def build(self, data_dir: Path, templates_dir: Path, output_dir: Path) -> None:
-        post_repository = PostRepository(data_dir)
-        templates_repository = TemplateRepository(templates_dir)
+        post_repository = PostRepository.load_from_directory(data_dir)
+        templates_repository = TemplateRepository.load_from_directory(templates_dir)
 
         output_writer = OutputWriter(output_dir)
 

@@ -2,5 +2,6 @@ from pathlib import Path
 
 
 class TemplateRepository:
-    def __init__(self, templates_dir: Path) -> None:
+    @classmethod
+    def load_from_directory(cls, templates_dir: Path) -> "TemplateRepository":
         pass

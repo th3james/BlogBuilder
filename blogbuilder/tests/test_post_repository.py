@@ -6,6 +6,9 @@ from blogbuilder.post_repository import PostRepository
 
 
 class PostRepositoryTest(TestCase):
+    def test_TODO_load_from_directory(self) -> None:
+        assert False
+
     def test_get_all_returns_a_post_with_path(self) -> None:
         """
         given a directory with a post in it

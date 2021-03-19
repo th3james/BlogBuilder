@@ -41,11 +41,14 @@ class BlogBuilderTests(TestCase):
         ):
             BlogBuilder().build(data_dir, templates_dir, output_dir)
 
-        FakePostRepository.assert_called_once_with(data_dir)
-        FakeTemplateRepository.assert_called_once_with(templates_dir)
+        FakePostRepository.load_from_directory.assert_called_once_with(data_dir)
+        FakeTemplateRepository.load_from_directory.assert_called_once_with(
+            templates_dir
+        )
 
         FakeBlogRenderer.assert_called_once_with(
-            FakePostRepository.return_value, FakeTemplateRepository.return_value
+            FakePostRepository.load_from_directory.return_value,
+            FakeTemplateRepository.load_from_directory.return_value,
         )
 
         FakeOutputWriter.assert_called_once_with(output_dir)

@@ -9,6 +9,10 @@ from blogbuilder.post import Post
 class PostRepository:
     data_dir: Path
 
+    @classmethod
+    def load_from_directory(cls, data_dir: Path) -> "PostRepository":
+        return cls(data_dir)
+
     def get_all(self) -> Iterable[Post]:
         input_file_paths = [f for f in self.data_dir.glob("*") if f.is_file()]
         posts: List[Post] = []
