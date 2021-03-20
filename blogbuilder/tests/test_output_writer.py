@@ -2,7 +2,7 @@ from pathlib import Path
 from shutil import rmtree
 from unittest import TestCase
 
-from blogbuilder.rendered_blog_file import RenderedBlogFile
+from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 from blogbuilder.output_writer import OutputWriter
 
 

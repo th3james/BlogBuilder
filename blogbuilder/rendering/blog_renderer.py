@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, List
 
-from blogbuilder.rendered_blog_file import RenderedBlogFile
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 from blogbuilder.template_repository import TemplateRepository
 
 

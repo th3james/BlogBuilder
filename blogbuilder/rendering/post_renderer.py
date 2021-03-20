@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from blogbuilder.post import Post
-from blogbuilder.rendered_blog_file import RenderedBlogFile
+from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 
 
 class PostRenderer:

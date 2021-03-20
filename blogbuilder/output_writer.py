@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from blogbuilder.rendered_blog_file import RenderedBlogFile
+from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 
 
 @dataclass
