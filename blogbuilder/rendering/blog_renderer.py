@@ -8,7 +8,7 @@ from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 from blogbuilder.template_repository import TemplateRepository
 
 
-@dataclass
+@dataclass(frozen=True)
 class BlogRenderer:
     post_repository: PostRepository
     template_repository: TemplateRepository

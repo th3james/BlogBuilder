@@ -4,7 +4,7 @@ from pathlib import Path
 from blogbuilder.post import Post
 
 
-@dataclass
+@dataclass(frozen=True)
 class PostFileLoader:
     base_input_dir: Path
 

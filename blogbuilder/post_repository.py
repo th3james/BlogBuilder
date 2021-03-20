@@ -6,7 +6,7 @@ from blogbuilder.post import Post
 from blogbuilder.post_file_loader import PostFileLoader
 
 
-@dataclass
+@dataclass(frozen=True)
 class PostRepository:
     posts: Iterable[Post]
 

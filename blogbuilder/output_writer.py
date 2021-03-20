@@ -4,7 +4,7 @@ from pathlib import Path
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 
 
-@dataclass
+@dataclass(frozen=True)
 class OutputWriter:
     output_dir: Path
 
