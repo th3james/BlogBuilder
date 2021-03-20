@@ -10,4 +10,4 @@ class PostFileLoader:
 
     def load(self, input_file_path: Path) -> Post:
         chrooted_path = input_file_path.relative_to(self.base_input_dir)
-        return Post(chrooted_path.stem)
+        return Post(chrooted_path.stem, "")
