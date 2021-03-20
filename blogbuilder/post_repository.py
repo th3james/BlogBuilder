@@ -12,7 +12,7 @@ class PostRepository:
 
     @classmethod
     def load_from_directory(cls, data_dir: Path) -> "PostRepository":
-        input_file_paths = [f for f in data_dir.glob("*") if f.is_file()]
+        input_file_paths = [f for f in data_dir.glob("*.md") if f.is_file()]
         post_file_loader = PostFileLoader(data_dir)
         posts: List[Post] = []
         for input_file_path in input_file_paths:
