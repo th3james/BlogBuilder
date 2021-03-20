@@ -3,6 +3,7 @@ from unittest import mock, TestCase
 
 from blogbuilder.blog_renderer import BlogRenderer
 from blogbuilder.post import Post
+from blogbuilder.post_renderer import PostRenderer
 from blogbuilder.post_repository import PostRepository
 
 
@@ -22,11 +23,10 @@ class BlogRendererTest(TestCase):
         given a PostRepository with a post
         it returns a file with the post path
         """
-        post = Post(Path("fancy-post.html"), Path("fancy-post.html"))
-        post_repository = mock.Mock(spec=PostRepository)
-        post_repository.get_all.return_value = [post]
+        post = Post("fancy-post")
+        post_repository = PostRepository([post])
 
         blog_renderer = BlogRenderer(post_repository, mock.Mock())
         result = blog_renderer.render_all()
 
-        assert post.path in [p.path for p in result]
+        assert PostRenderer().render(post) in result

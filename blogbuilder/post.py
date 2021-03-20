@@ -1,8 +1,6 @@
 from dataclasses import dataclass
-from pathlib import Path
 
 
-@dataclass
+@dataclass(frozen=True)
 class Post:
-    path: Path
-    source_path: Path
+    slug: str

@@ -4,6 +4,7 @@ from typing import Iterable, List
 
 from blogbuilder.rendered_blog_file import RenderedBlogFile
 from blogbuilder.post_repository import PostRepository
+from blogbuilder.post_renderer import PostRenderer
 from blogbuilder.template_repository import TemplateRepository
 
 
@@ -14,6 +15,6 @@ class BlogRenderer:
 
     def render_all(self) -> Iterable[RenderedBlogFile]:
         files: List[RenderedBlogFile] = [RenderedBlogFile(Path("index.html"))]
-        for post in self.post_repository.get_all():
-            files.append(RenderedBlogFile(post.path))
+        for post in self.post_repository.posts:
+            files.append(PostRenderer().render(post))
         return files
