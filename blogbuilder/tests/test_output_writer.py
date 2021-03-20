@@ -13,7 +13,7 @@ class OutputWriterTests(TestCase):
         it creates it in the output directory
         """
         output_dir = Path("blogbuilder/tests/output_writer_test_data")
-        blog_file = RenderedBlogFile(Path("nice-file.html"))
+        blog_file = RenderedBlogFile(Path("nice-file.html"), "")
 
         try:
             output_writer = OutputWriter(output_dir)
@@ -31,7 +31,7 @@ class OutputWriterTests(TestCase):
         it creates it in the pre-existing directory
         """
         output_dir = Path("blogbuilder/tests/output_writer_test_data")
-        blog_file = RenderedBlogFile(Path("nice-file.html"))
+        blog_file = RenderedBlogFile(Path("nice-file.html"), "")
 
         try:
             output_dir = Path("blogbuilder/tests/output_writer_test_data")
@@ -43,5 +43,24 @@ class OutputWriterTests(TestCase):
 
             expected_file = output_dir / blog_file.path
             assert expected_file.is_file()
+        finally:
+            rmtree(output_dir)
+
+    def test_write_writes_file_content(self) -> None:
+        """
+        given a file
+        it writes the content to the file
+        """
+        output_dir = Path("blogbuilder/tests/output_writer_test_data")
+        content = "some text or whatever"
+        blog_file = RenderedBlogFile(Path("nice-file.html"), content)
+
+        try:
+            output_writer = OutputWriter(output_dir)
+
+            output_writer.write(blog_file)
+
+            expected_file = output_dir / blog_file.path
+            assert expected_file.read_text() == content
         finally:
             rmtree(output_dir)

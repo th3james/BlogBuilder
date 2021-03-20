@@ -8,7 +8,7 @@ from blogbuilder.rendered_blog_file import RenderedBlogFile
 class OutputWriter:
     output_dir: Path
 
-    def write(self, file: RenderedBlogFile) -> None:
-        output_path = self.output_dir / file.path
+    def write(self, blog_file: RenderedBlogFile) -> None:
+        output_path = self.output_dir / blog_file.path
         output_path.parents[0].mkdir(parents=True, exist_ok=True)
-        output_path.touch()
+        output_path.write_text(blog_file.content)
