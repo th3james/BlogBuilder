@@ -4,7 +4,7 @@ from typing import Iterable, List
 
 from blogbuilder.rendered_blog_file import RenderedBlogFile
 from blogbuilder.post_repository import PostRepository
-from blogbuilder.post_renderer import PostRenderer
+from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.template_repository import TemplateRepository
 
 

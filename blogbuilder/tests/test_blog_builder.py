@@ -3,7 +3,7 @@ from unittest import TestCase, mock
 from unittest.mock import call
 
 from blogbuilder.blog_builder import BlogBuilder
-from blogbuilder.blog_renderer import BlogRenderer
+from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.output_writer import OutputWriter
 
 

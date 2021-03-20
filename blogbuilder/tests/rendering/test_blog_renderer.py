@@ -1,9 +1,9 @@
 from pathlib import Path
 from unittest import mock, TestCase
 
-from blogbuilder.blog_renderer import BlogRenderer
+from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.post import Post
-from blogbuilder.post_renderer import PostRenderer
+from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.post_repository import PostRepository
 
 

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.template_repository import TemplateRepository
-from blogbuilder.blog_renderer import BlogRenderer
+from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.output_writer import OutputWriter
 
 

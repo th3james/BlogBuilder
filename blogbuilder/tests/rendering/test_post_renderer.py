@@ -2,7 +2,7 @@ from pathlib import Path
 from unittest import TestCase
 
 from blogbuilder.post import Post
-from blogbuilder.post_renderer import PostRenderer
+from blogbuilder.rendering.post_renderer import PostRenderer
 
 
 class PostRendererTest(TestCase):
