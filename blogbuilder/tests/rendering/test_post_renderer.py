@@ -3,6 +3,7 @@ from unittest import TestCase
 
 from blogbuilder.post import Post
 from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
 
 
 class PostRendererTest(TestCase):
@@ -20,10 +21,10 @@ class PostRendererTest(TestCase):
     def test_render_renders_content(self) -> None:
         """
         given a post
-        it returns a rendered file with the content based on the body
+        it returns a file with the content as the rendered body
         """
-        post = Post("dope-file", "nice text")
+        post = Post("dope-file", "# nice text")
 
         result = PostRenderer().render(post)
 
-        assert "nice text" == result.content
+        assert MarkdownRenderer().render(post.body) == result.content

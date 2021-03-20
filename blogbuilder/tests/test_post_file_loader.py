@@ -21,7 +21,7 @@ class PostFileLoaderTest(TestCase):
 
             assert result.slug == "fancy-post"
 
-    def test_load_from_valid_file_laods_body(self) -> None:
+    def test_load_from_valid_file_loads_body(self) -> None:
         """
         given a file
         it return a post with the body read from the file
