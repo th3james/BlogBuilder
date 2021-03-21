@@ -21,12 +21,15 @@ class BlogRendererTest(TestCase):
     def test_renderer_returns_file_for_post(self) -> None:
         """
         given a PostRepository with a post
-        it returns a file with the post path
+        and a TemplateRepository with a base template
+        it returns the rendered post
         """
         post = Post("fancy-post", "")
         post_repository = PostRepository([post])
+        base_template = Template("<main> cool $body </main>")
+        post_repository = TemplateRepository(base_template)
 
         blog_renderer = BlogRenderer(post_repository, mock.Mock())
         result = blog_renderer.render_all()
 
-        assert PostRenderer().render(post) in result
+        assert PostRenderer(base_template).render(post) in result
