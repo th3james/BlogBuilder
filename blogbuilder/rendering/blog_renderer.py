@@ -16,5 +16,7 @@ class BlogRenderer:
     def render_all(self) -> Iterable[RenderedBlogFile]:
         files: List[RenderedBlogFile] = [RenderedBlogFile(Path("index.html"), "")]
         for post in self.post_repository.posts:
-            files.append(PostRenderer().render(post))
+            files.append(
+                PostRenderer(self.template_repository.base_template).render(post)
+            )
         return files

@@ -1,10 +1,12 @@
 from pathlib import Path
 from unittest import mock, TestCase
 
-from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.post import Post
-from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.post_repository import PostRepository
+from blogbuilder.rendering.blog_renderer import BlogRenderer
+from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.templates.template import Template
+from blogbuilder.template_repository import TemplateRepository
 
 
 class BlogRendererTest(TestCase):
@@ -27,9 +29,9 @@ class BlogRendererTest(TestCase):
         post = Post("fancy-post", "")
         post_repository = PostRepository([post])
         base_template = Template("<main> cool $body </main>")
-        post_repository = TemplateRepository(base_template)
+        template_repository = TemplateRepository(base_template)
 
-        blog_renderer = BlogRenderer(post_repository, mock.Mock())
+        blog_renderer = BlogRenderer(post_repository, template_repository)
         result = blog_renderer.render_all()
 
         assert PostRenderer(base_template).render(post) in result
