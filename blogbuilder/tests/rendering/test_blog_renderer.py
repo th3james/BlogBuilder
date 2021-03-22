@@ -6,7 +6,7 @@ from blogbuilder.post_repository import PostRepository
 from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.templates.template import Template
-from blogbuilder.template_repository import TemplateRepository
+from blogbuilder.templates.template_repository import TemplateRepository
 
 
 class BlogRendererTest(TestCase):

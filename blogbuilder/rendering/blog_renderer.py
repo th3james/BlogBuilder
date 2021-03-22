@@ -5,7 +5,7 @@ from typing import Iterable, List
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
-from blogbuilder.template_repository import TemplateRepository
+from blogbuilder.templates.template_repository import TemplateRepository
 
 
 @dataclass(frozen=True)
