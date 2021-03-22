@@ -12,6 +12,6 @@ class PostRenderer:
     base_template: Template
 
     def render(self, post: Post) -> RenderedBlogFile:
-        content = MarkdownRenderer().render(post.body)
-        content = self.base_template.render({})
+        body_html = MarkdownRenderer().render(post.body)
+        content = self.base_template.render({"body": body_html})
         return RenderedBlogFile(Path(post.slug + ".html"), content)
