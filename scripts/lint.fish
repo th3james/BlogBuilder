@@ -1,4 +1,4 @@
 #!/usr/bin/env fish
-flake8 blogbuilder
-black --check blogbuilder
-mypy blogbuilder
+flake8 src/blogbuilder
+black --check src/blogbuilder
+mypy src/blogbuilder
