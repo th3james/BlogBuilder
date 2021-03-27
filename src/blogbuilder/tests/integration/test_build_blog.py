@@ -15,8 +15,8 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                Path("blogbuilder/tests/example-test-app/posts"),
-                Path("blogbuilder/tests/example-test-app/templates"),
+                Path("src/blogbuilder/tests/example-test-app/posts"),
+                Path("src/blogbuilder/tests/example-test-app/templates"),
                 output_dir,
             )
 
@@ -32,8 +32,8 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                Path("blogbuilder/tests/example-test-app/posts"),
-                Path("blogbuilder/tests/example-test-app/templates"),
+                Path("src/blogbuilder/tests/example-test-app/posts"),
+                Path("src/blogbuilder/tests/example-test-app/templates"),
                 output_dir,
             )
 
