@@ -14,4 +14,7 @@ scripts/./lint.fish
 
 ## Run tests
 scripts/./run-tests.fish
+
+## Install blogbuilder CLI command
+scripts/./install-pip-package.fish
 ```
