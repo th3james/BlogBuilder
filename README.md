@@ -23,6 +23,8 @@ scripts/./lint.fish
 ## Run tests
 scripts/./run-tests.fish
 
-## Install blogbuilder CLI command
-scripts/./install-pip-package.fish
+## Install blogbuilder pip egg as editable install
+scripts/./install-pip-editable.fish
+## Install blogbuilder pip package as built package
+scripts/./install-pip-release.fish
 ```
