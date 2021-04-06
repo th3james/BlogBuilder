@@ -1,5 +1,13 @@
 # Blog builder
 
+Personal static blog builder
+
+## Usage
+
+```shell
+blogbuilder blog/posts/ blog/templates/ blog/output_dir
+```
+
 ## Dev scripts
 
 ```shell
