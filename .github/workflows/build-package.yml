@@ -3,7 +3,7 @@ name: Build the pip package
 on: push
 
 jobs:
-  lint:
+  build-package:
     name: Build the pip package
     # Set the type of machine to run on
     runs-on: ubuntu-latest
