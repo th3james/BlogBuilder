@@ -1,4 +1,4 @@
-name: Lint
+name: Lint & Test
 
 on: push
 
@@ -26,3 +26,7 @@ jobs:
       - name: Run the linters
         run: |
           bash scripts/lint.fish
+
+      - name: Run the tests
+        run: |
+          bash scripts/run-tests.fish
