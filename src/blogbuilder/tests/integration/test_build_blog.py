@@ -6,6 +6,24 @@ from blogbuilder.blog_builder import BlogBuilder
 
 
 class IntegrationBuildBlogTests(TestCase):
+    def test_build_example_index_page(self) -> None:
+        """
+        given the example blog directory
+        and an output directory
+        it renders the index page
+        containing the post content
+        """
+        with TemporaryDirectory() as td:
+            output_dir = Path(td)
+            BlogBuilder().build(
+                Path("src/blogbuilder/tests/example-test-app/posts"),
+                Path("src/blogbuilder/tests/example-test-app/templates"),
+                output_dir,
+            )
+
+            with open(output_dir / "index.html") as post:
+                assert "<h1>Nice post</h1>" in post.read()
+
     def test_build_example_blog_post(self) -> None:
         """
         given the example blog directory
