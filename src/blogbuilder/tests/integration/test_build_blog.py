@@ -6,6 +6,9 @@ from blogbuilder.blog_builder import BlogBuilder
 
 
 class IntegrationBuildBlogTests(TestCase):
+    def example_test_app_path(self) -> Path:
+        return Path("src/blogbuilder/tests/example-test-app")
+
     def test_build_example_index_page(self) -> None:
         """
         given the example blog directory
@@ -16,8 +19,8 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                Path("src/blogbuilder/tests/example-test-app/posts"),
-                Path("src/blogbuilder/tests/example-test-app/templates"),
+                self.example_test_app_path() / Path("posts"),
+                self.example_test_app_path() / Path("templates"),
                 output_dir,
             )
 
@@ -33,8 +36,8 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                Path("src/blogbuilder/tests/example-test-app/posts"),
-                Path("src/blogbuilder/tests/example-test-app/templates"),
+                self.example_test_app_path() / Path("posts"),
+                self.example_test_app_path() / Path("templates"),
                 output_dir,
             )
 
@@ -50,8 +53,8 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                Path("src/blogbuilder/tests/example-test-app/posts"),
-                Path("src/blogbuilder/tests/example-test-app/templates"),
+                self.example_test_app_path() / Path("posts"),
+                self.example_test_app_path() / Path("templates"),
                 output_dir,
             )
 
