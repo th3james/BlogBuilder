@@ -3,6 +3,7 @@ from unittest import mock, TestCase
 
 from blogbuilder.post import Post
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
+from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.templates.template import Template
 
 
@@ -15,22 +16,20 @@ class IndexPageRendererTest(TestCase):
 
         assert result.path == Path("index.html")
 
-    def test_renders_recent_post_slugs(self) -> None:
+    def test_renders_recent_posts(self) -> None:
         """
         given a recent post provider
-        it renders the slugs of the recent posts
+        it renders each post
         """
         base_template = Template("<main> I am template $body </main>")
 
-        post_slugs = ["cool", "whatever"]
+        posts = [Post("a", "b"), Post("c", "d")]
         recent_post_provider = mock.Mock()
-        recent_post_provider.recent_posts.return_value = [
-            Post(slug, "nvm") for slug in post_slugs
-        ]
+        recent_post_provider.recent_posts.return_value = posts
 
         result = IndexPageRenderer(base_template).render(recent_post_provider)
 
-        assert all([slug in result.content for slug in post_slugs])
+        assert all([PostRenderer(post) in result.content for post in posts])
 
     def test_renders_using_base_template(self) -> None:
         """
