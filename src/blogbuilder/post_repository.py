@@ -1,13 +1,21 @@
+from abc import abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List
+from typing import Iterable, List, Protocol
+
 
 from blogbuilder.post import Post
 from blogbuilder.post_file_loader import PostFileLoader
 
 
+class RecentPostProvider(Protocol):
+    @abstractmethod
+    def recent_posts(self) -> Iterable[Post]:
+        ...
+
+
 @dataclass(frozen=True)
-class PostRepository:
+class PostRepository(RecentPostProvider):
     posts: Iterable[Post]
 
     @classmethod
@@ -19,3 +27,6 @@ class PostRepository:
             posts.append(post_file_loader.load(input_file_path))
 
         return cls(posts)
+
+    def recent_posts(self) -> Iterable[Post]:
+        return self.posts
