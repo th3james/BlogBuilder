@@ -22,4 +22,6 @@ class IndexPageRenderer:
                 {rendered_body}
             """.format()
 
+        content = self.base_template.render({"body": content})
+
         return RenderedBlogFile(Path("index.html"), content)
