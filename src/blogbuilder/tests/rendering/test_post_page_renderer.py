@@ -3,11 +3,11 @@ from unittest import TestCase
 
 from blogbuilder.post import Post
 from blogbuilder.templates.template import Template
-from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.rendering.post_page_renderer import PostPageRenderer
 from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
 
 
-class PostRendererTest(TestCase):
+class PostPageRendererTest(TestCase):
     def test_render_path_based_on_slug(self) -> None:
         """
         given a post
@@ -15,7 +15,7 @@ class PostRendererTest(TestCase):
         """
         post = Post("dope-file", "")
 
-        result = PostRenderer(Template("")).render(post)
+        result = PostPageRenderer(Template("")).render(post)
 
         assert Path("dope-file.html") == result.path
 
@@ -28,7 +28,7 @@ class PostRendererTest(TestCase):
         base_template = Template("<main>sup $body</main>")
         post = Post("dope-file", "# nice text")
 
-        result = PostRenderer(base_template).render(post)
+        result = PostPageRenderer(base_template).render(post)
 
         assert (
             base_template.render({"body": MarkdownRenderer().render(post.body)})

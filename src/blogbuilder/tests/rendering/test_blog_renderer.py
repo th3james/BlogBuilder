@@ -4,7 +4,7 @@ from blogbuilder.post import Post
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
-from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.rendering.post_page_renderer import PostPageRenderer
 from blogbuilder.templates.template import Template
 from blogbuilder.templates.template_repository import TemplateRepository
 
@@ -37,4 +37,4 @@ class BlogRendererTest(TestCase):
         blog_renderer = BlogRenderer(post_repository, template_repository)
         result = blog_renderer.render_all()
 
-        assert PostRenderer(base_template).render(post) in result
+        assert PostPageRenderer(base_template).render(post) in result

@@ -8,7 +8,7 @@ from blogbuilder.templates.template import Template
 
 
 @dataclass(frozen=True)
-class PostRenderer:
+class PostPageRenderer:
     base_template: Template
 
     def render(self, post: Post) -> RenderedBlogFile:

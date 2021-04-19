@@ -3,7 +3,7 @@ from typing import Iterable, List
 
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
-from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.rendering.post_page_renderer import PostPageRenderer
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 from blogbuilder.templates.template_repository import TemplateRepository
 
@@ -20,6 +20,6 @@ class BlogRenderer:
         files: List[RenderedBlogFile] = [index_page]
         for post in self.post_repository.posts:
             files.append(
-                PostRenderer(self.template_repository.base_template).render(post)
+                PostPageRenderer(self.template_repository.base_template).render(post)
             )
         return files
