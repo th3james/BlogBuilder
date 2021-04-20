@@ -1,10 +1,10 @@
 from pathlib import Path
 from unittest import mock, TestCase
 
-from blogbuilder.post import Post
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
 from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.templates.template import Template
+from blogbuilder.tests.factories import build_post
 
 
 class IndexPageRendererTest(TestCase):
@@ -23,7 +23,7 @@ class IndexPageRendererTest(TestCase):
         """
         base_template = Template("<main> I am template $body </main>")
 
-        posts = [Post("a", "b"), Post("c", "d")]
+        posts = [build_post(title="a"), build_post(title="b")]
         recent_post_provider = mock.Mock()
         recent_post_provider.recent_posts.return_value = posts
 

@@ -11,7 +11,7 @@ class PostRendererTest(TestCase):
         given a post
         it returns a string containing the post content rendered as markdown
         """
-        post = Post("nvm", "## Some markdown")
+        post = Post("nvm", "nvm", "## Some markdown")
 
         result = PostRenderer().render(post)
 

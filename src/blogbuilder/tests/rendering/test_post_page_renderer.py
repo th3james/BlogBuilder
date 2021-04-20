@@ -1,10 +1,10 @@
 from pathlib import Path
 from unittest import TestCase
 
-from blogbuilder.post import Post
 from blogbuilder.templates.template import Template
 from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.rendering.post_page_renderer import PostPageRenderer
+from blogbuilder.tests.factories import build_post
 
 
 class PostPageRendererTest(TestCase):
@@ -13,7 +13,7 @@ class PostPageRendererTest(TestCase):
         given a post
         it returns a rendered file with the path based on the slug
         """
-        post = Post("dope-file", "")
+        post = build_post(slug="dope-file")
 
         result = PostPageRenderer(Template("")).render(post)
 
@@ -26,7 +26,7 @@ class PostPageRendererTest(TestCase):
         interpolated into the base template
         """
         base_template = Template("<main>sup $body</main>")
-        post = Post("dope-file", "# nice text")
+        post = build_post()
 
         result = PostPageRenderer(base_template).render(post)
 

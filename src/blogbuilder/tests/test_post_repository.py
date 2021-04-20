@@ -4,6 +4,7 @@ from unittest import TestCase
 
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.post_file_loader import PostFileLoader
+from blogbuilder.tests.factories import build_valid_post_content
 
 
 class PostRepositoryTest(TestCase):
@@ -16,7 +17,7 @@ class PostRepositoryTest(TestCase):
             input_dir = Path(td)
 
             post_file_path = input_dir / "fancy-post.md"
-            post_file_path.touch()
+            post_file_path.write_text(build_valid_post_content())
 
             post_repository = PostRepository.load_from_directory(input_dir)
 
