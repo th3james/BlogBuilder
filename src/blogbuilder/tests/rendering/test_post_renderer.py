@@ -1,8 +1,8 @@
 from unittest import TestCase
 
-from blogbuilder.post import Post
 from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
 from blogbuilder.rendering.post_renderer import PostRenderer
+from blogbuilder.tests.factories import build_post
 
 
 class PostRendererTest(TestCase):
@@ -11,8 +11,19 @@ class PostRendererTest(TestCase):
         given a post
         it returns a string containing the post content rendered as markdown
         """
-        post = Post("nvm", "nvm", "## Some markdown")
+        post = build_post(body="## Some markdown")
 
         result = PostRenderer().render(post)
 
         assert MarkdownRenderer().render(post.body) in result
+
+    def test_renders_post_title(self) -> None:
+        """
+        given a post
+        it returns a string containing the post title in h1 tags
+        """
+        post = build_post(title="wicked nice title")
+
+        result = PostRenderer().render(post)
+
+        assert "<h1>wicked nice title</h1>" in result
