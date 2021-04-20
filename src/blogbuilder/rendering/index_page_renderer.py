@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from blogbuilder.post_repository import RecentPostProvider
-from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
+from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 from blogbuilder.templates.template import Template
 
@@ -14,13 +14,9 @@ class IndexPageRenderer:
     def render(self, recent_post_repo: RecentPostProvider) -> RenderedBlogFile:
         recent_posts = recent_post_repo.recent_posts()
         content = ""
-        for post in recent_posts:
-            rendered_body = MarkdownRenderer().render(post.body)
 
-            content += f"""
-                {post.slug}
-                {rendered_body}
-            """.format()
+        for post in recent_posts:
+            content += PostRenderer().render(post)
 
         content = self.base_template.render({"body": content})
 
