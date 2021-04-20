@@ -3,8 +3,8 @@ from unittest import TestCase
 
 from blogbuilder.post import Post
 from blogbuilder.templates.template import Template
+from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.rendering.post_page_renderer import PostPageRenderer
-from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
 
 
 class PostPageRendererTest(TestCase):
@@ -22,7 +22,7 @@ class PostPageRendererTest(TestCase):
     def test_render_renders_markdown_in_template(self) -> None:
         """
         given a post
-        it returns a file with the content as rendered post body
+        it renders the post
         interpolated into the base template
         """
         base_template = Template("<main>sup $body</main>")
@@ -31,6 +31,6 @@ class PostPageRendererTest(TestCase):
         result = PostPageRenderer(base_template).render(post)
 
         assert (
-            base_template.render({"body": MarkdownRenderer().render(post.body)})
+            base_template.render({"body": PostRenderer().render(post)})
             == result.content
         )

@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from blogbuilder.post import Post
+from blogbuilder.rendering.post_renderer import PostRenderer
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
-from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
 from blogbuilder.templates.template import Template
 
 
@@ -12,6 +12,6 @@ class PostPageRenderer:
     base_template: Template
 
     def render(self, post: Post) -> RenderedBlogFile:
-        body_html = MarkdownRenderer().render(post.body)
-        content = self.base_template.render({"body": body_html})
+        post_html = PostRenderer().render(post)
+        content = self.base_template.render({"body": post_html})
         return RenderedBlogFile(Path(post.slug + ".html"), content)
