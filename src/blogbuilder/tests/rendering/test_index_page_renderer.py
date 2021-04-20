@@ -29,7 +29,7 @@ class IndexPageRendererTest(TestCase):
 
         result = IndexPageRenderer(base_template).render(recent_post_provider)
 
-        assert all([PostRenderer(post) in result.content for post in posts])
+        assert all([PostRenderer().render(post) in result.content for post in posts])
 
     def test_renders_using_base_template(self) -> None:
         """
