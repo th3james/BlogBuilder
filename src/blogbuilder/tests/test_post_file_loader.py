@@ -43,6 +43,7 @@ text, yeah?"""
 
             core_fields = post_file_loader.parse_str(file_content)
             assert result.body == core_fields.body
+            assert result.title == core_fields.title
 
     def test_parse_str_parses_body(self) -> None:
         """

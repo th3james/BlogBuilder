@@ -18,7 +18,7 @@ class PostFileLoader:
         file_content = input_file_path.read_text()
         core_post = self.parse_str(file_content)
 
-        return Post(chrooted_path.stem, "title not implemented yet", core_post.body)
+        return Post(chrooted_path.stem, core_post.title, core_post.body)
 
     def parse_str(self, post_str: str) -> Post:
         split_content = post_str.split("title: ")
