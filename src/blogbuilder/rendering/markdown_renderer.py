@@ -1,6 +1,7 @@
-from markdown import markdown
+import re
+from commonmark import commonmark
 
 
 class MarkdownRenderer:
     def render(self, markdown_str: str) -> str:
-        return markdown(markdown_str)
+        return commonmark(markdown_str)
