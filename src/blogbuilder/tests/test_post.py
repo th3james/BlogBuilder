@@ -9,4 +9,4 @@ class PostTest(TestCase):
         it prepends "post/" to the slug
         """
         post = build_post(slug="cool-slug")
-        assert "/post/cool-slug" == post.path
+        assert "/post/cool-slug.html" == post.path

@@ -9,4 +9,4 @@ class Post:
 
     @property
     def path(self) -> str:
-        return f"/post/{self.slug}"
+        return f"/post/{self.slug}.html"
