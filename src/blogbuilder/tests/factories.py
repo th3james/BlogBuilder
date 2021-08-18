@@ -2,7 +2,7 @@ from blogbuilder.post import Post
 
 
 def build_post(
-    slug: str = "post slug", title: str = "post title", body: str = "# hello\ncontent"
+    slug: str = "post-slug", title: str = "post title", body: str = "# hello\ncontent"
 ) -> Post:
     return Post(slug, title, body)
 

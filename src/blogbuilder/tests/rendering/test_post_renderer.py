@@ -26,4 +26,5 @@ class PostRendererTest(TestCase):
 
         result = PostRenderer().render(post)
 
-        assert "<h1>wicked nice title</h1>" in result
+        expected_title = f'<h1><a href="{post.path}">wicked nice title</a></h1>'
+        assert expected_title in result

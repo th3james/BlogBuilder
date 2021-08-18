@@ -25,7 +25,7 @@ class IntegrationBuildBlogTests(TestCase):
             )
 
             with open(output_dir / "index.html") as post:
-                assert "<h1>Nice post</h1>" in post.read()
+                assert "<h1><a href=\"/post/cool-post\">Nice post</a></h1>" in post.read()
 
     def test_build_example_blog_post(self) -> None:
         """
@@ -42,7 +42,7 @@ class IntegrationBuildBlogTests(TestCase):
             )
 
             with open(output_dir / "cool-post.html") as post:
-                assert "<h1>Nice post</h1>" in post.read()
+                assert "<h1><a href=\"/post/cool-post\">Nice post</a></h1>" in post.read()
 
     def test_build_example_blog_with_template(self) -> None:
         """
