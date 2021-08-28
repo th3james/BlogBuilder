@@ -17,7 +17,7 @@ class PostPageRendererTest(TestCase):
 
         result = PostPageRenderer(Template("")).render(post)
 
-        assert Path(post.file_path) == result.path
+        assert post.file_path == result.path
 
     def test_render_renders_markdown_in_template(self) -> None:
         """
