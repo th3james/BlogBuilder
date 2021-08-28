@@ -8,5 +8,5 @@ if TYPE_CHECKING:
 
 class PostRenderer:
     def render(self, post: "Post") -> str:
-        post_markdown = f"# [{post.title}]({post.path})\n{post.body}"
+        post_markdown = f"# [{post.title}]({post.url_path})\n{post.body}"
         return MarkdownRenderer().render(post_markdown)

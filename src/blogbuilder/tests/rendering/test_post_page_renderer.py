@@ -11,13 +11,13 @@ class PostPageRendererTest(TestCase):
     def test_render_path_based_on_slug(self) -> None:
         """
         given a post
-        it returns a rendered file with the path based on the post path
+        it returns a rendered file with the path based on the post file_path
         """
         post = build_post(slug="dope-file")
 
         result = PostPageRenderer(Template("")).render(post)
 
-        assert Path(post.path) == result.path
+        assert Path(post.file_path) == result.path
 
     def test_render_renders_markdown_in_template(self) -> None:
         """

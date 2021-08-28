@@ -14,4 +14,4 @@ class PostPageRenderer:
     def render(self, post: Post) -> RenderedBlogFile:
         post_html = PostRenderer().render(post)
         content = self.base_template.render({"body": post_html})
-        return RenderedBlogFile(Path(post.path), content)
+        return RenderedBlogFile(Path(post.file_path), content)
