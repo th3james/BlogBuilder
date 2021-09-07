@@ -7,7 +7,12 @@ def build_post(
     return Post(slug, title, body)
 
 
-def build_valid_post_content(title: str = "nice title", body: str = "Nice body") -> str:
+def build_valid_post_content(
+    title: str = "nice title",
+    timestamp: str = "2021-09-07T19:53:44+00:00",
+    body: str = "Nice body",
+) -> str:
     return f"""title: {title}
+timestamp: {timestamp}
 body:
 {body}"""

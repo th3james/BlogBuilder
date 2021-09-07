@@ -1,4 +1,3 @@
-from pathlib import Path
 from unittest import TestCase
 
 from blogbuilder.templates.template import Template

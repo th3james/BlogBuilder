@@ -1,3 +1,5 @@
+from datetime import datetime
+import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import mock, TestCase
@@ -82,5 +84,28 @@ text, yeah?"""
         given a string without valid title: attribute
         it returns a meaningful error
         """
+        content = re.sub(r"title: .*\n", "", build_valid_post_content())
+
         with pytest.raises(InvalidPostDefinitionError):
-            PostFileLoader(mock.Mock()).parse_str("body:\nnvm")
+            PostFileLoader(mock.Mock()).parse_str(content)
+
+    def test_parse_str_parses_timestamp(self) -> None:
+        """
+        given a string with a valid ISO 8601 timestamp: attribute
+        it return a post with the timestamp set to the parsed time
+        """
+        timestamp = "2021-09-07T21:26:00+00:00"
+        file_content = build_valid_post_content(title=title)
+
+        result = PostFileLoader(mock.Mock()).parse_str(file_content)
+
+        assert result.timestamp == datetime.fromisoformat(timestamp)
+
+    def test_parse_str_fails_when_no_timestamp(self) -> None:
+        """
+        given a string without valid timestamp: attribute
+        it returns a meaningful error
+        """
+        content = re.sub(r"timestamp: .*\n", "", build_valid_post_content())
+        with pytest.raises(InvalidPostDefinitionError):
+            PostFileLoader(mock.Mock()).parse_str(content)
