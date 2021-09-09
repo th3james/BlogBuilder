@@ -31,9 +31,7 @@ class PostFileLoaderTest(TestCase):
         given a file
         it parses the post fields from the file content
         """
-        file_content = """title: nvm
-body:
-text, yeah?"""
+        file_content = build_valid_post_content()
         with TemporaryDirectory() as td:
             input_dir = Path(td)
 
@@ -95,7 +93,7 @@ text, yeah?"""
         it return a post with the timestamp set to the parsed time
         """
         timestamp = "2021-09-07T21:26:00+00:00"
-        file_content = build_valid_post_content(title=title)
+        file_content = build_valid_post_content(timestamp=timestamp)
 
         result = PostFileLoader(mock.Mock()).parse_str(file_content)
 

@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from datetime import datetime
+import re
 from pathlib import Path
 
 from blogbuilder.post import Post
@@ -18,7 +20,9 @@ class PostFileLoader:
         file_content = input_file_path.read_text()
         core_post = self.parse_str(file_content)
 
-        return Post(chrooted_path.stem, core_post.title, core_post.body)
+        return Post(
+            chrooted_path.stem, core_post.title, core_post.body, core_post.timestamp
+        )
 
     def parse_str(self, post_str: str) -> Post:
         split_content = post_str.split("title: ")
@@ -29,6 +33,13 @@ class PostFileLoader:
 
         title = split_content[1].split("\n")[0]
 
+        timestamp_matches = re.findall(r"timestamp: (.*)\n", post_str)
+        if len(timestamp_matches) == 0:
+            raise InvalidPostDefinitionError(
+                "Couldn't parse required field 'timestamp' in:\n" + post_str
+            )
+        timestamp = datetime.fromisoformat(timestamp_matches[0])
+
         split_content = post_str.split("body:\n")
         if len(split_content) == 1:
             raise InvalidPostDefinitionError(
@@ -36,4 +47,4 @@ class PostFileLoader:
             )
 
         body = split_content[1]
-        return Post("not implemented", title, body)
+        return Post("not implemented", title, body, timestamp)

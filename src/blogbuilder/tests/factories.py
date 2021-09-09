@@ -1,10 +1,14 @@
 from blogbuilder.post import Post
+from datetime import datetime
 
 
 def build_post(
-    slug: str = "post-slug", title: str = "post title", body: str = "# hello\ncontent"
+    slug: str = "post-slug",
+    title: str = "post title",
+    body: str = "# hello\ncontent",
+    timestamp: "datetime" = datetime(2021, 2, 3),
 ) -> Post:
-    return Post(slug, title, body)
+    return Post(slug, title, body, timestamp)
 
 
 def build_valid_post_content(
