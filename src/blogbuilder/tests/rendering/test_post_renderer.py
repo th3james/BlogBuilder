@@ -28,3 +28,14 @@ class PostRendererTest(TestCase):
 
         expected_title = f'<h1><a href="{post.url_path}">wicked nice title</a></h1>'
         assert expected_title in result
+
+    def test_renders_post_timestamp(self) -> None:
+        """
+        given a post
+        it returns a string containing the post timestamp
+        """
+        post = build_post()
+
+        result = PostRenderer().render(post)
+
+        assert post.timestamp.isoformat() in result

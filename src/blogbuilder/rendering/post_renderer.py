@@ -8,5 +8,8 @@ if TYPE_CHECKING:
 
 class PostRenderer:
     def render(self, post: "Post") -> str:
-        post_markdown = f"# [{post.title}]({post.url_path})\n{post.body}"
+        post_time = post.timestamp.isoformat()
+        post_markdown = f"""# [{post.title}]({post.url_path})
+<time datetime="{post_time}">{post_time}</time>
+{post.body}"""
         return MarkdownRenderer().render(post_markdown)
