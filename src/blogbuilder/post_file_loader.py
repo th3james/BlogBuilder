@@ -24,23 +24,21 @@ class PostFileLoader:
             chrooted_path.stem, core_post.title, core_post.body, core_post.timestamp
         )
 
+    def _parse_attribute(self, attribute: str, post_str: str) -> str:
+        matches = re.findall(fr"^{attribute}: (.*)\n", post_str, flags=re.MULTILINE)
+        if len(matches) == 0:
+            raise InvalidPostDefinitionError(
+                f"Couldn't parse required field '{attribute}' in:\n" + post_str
+            )
+        return str(matches[0])
+
     def parse_str(self, post_str: str) -> Post:
-        split_content = post_str.split("title: ")
-        if len(split_content) == 1:
-            raise InvalidPostDefinitionError(
-                "Couldn't parse required field 'title' in:\n" + post_str
-            )
+        title = self._parse_attribute("title", post_str)
 
-        title = split_content[1].split("\n")[0]
+        timestamp_str = self._parse_attribute("timestamp", post_str)
+        timestamp = datetime.fromisoformat(timestamp_str)
 
-        timestamp_matches = re.findall(r"timestamp: (.*)\n", post_str)
-        if len(timestamp_matches) == 0:
-            raise InvalidPostDefinitionError(
-                "Couldn't parse required field 'timestamp' in:\n" + post_str
-            )
-        timestamp = datetime.fromisoformat(timestamp_matches[0])
-
-        split_content = post_str.split("body:\n")
+        split_content = re.split(r"^body:\n", post_str, flags=re.MULTILINE)
         if len(split_content) == 1:
             raise InvalidPostDefinitionError(
                 "Couldn't parse required field 'body' in:\n" + post_str
