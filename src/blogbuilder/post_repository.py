@@ -29,4 +29,4 @@ class PostRepository(RecentPostProvider):
         return cls(posts)
 
     def recent_posts(self) -> Iterable[Post]:
-        return self.posts
+        return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)[:5]
