@@ -9,6 +9,24 @@ class IntegrationBuildBlogTests(TestCase):
     def example_test_app_path(self) -> Path:
         return Path("src/blogbuilder/tests/example-test-app")
 
+    def test_renders_given_blog_name(self) -> None:
+        """
+        given a blog name
+        it renders the blog name
+        """
+        blog_name = "Dat fancy blog"
+        with TemporaryDirectory() as td:
+            output_dir = Path(td)
+            BlogBuilder().build(
+                blog_name,
+                self.example_test_app_path() / Path("posts"),
+                self.example_test_app_path() / Path("templates"),
+                output_dir,
+            )
+
+            with open(output_dir / "index.html") as post:
+                assert "<h1>Nice post</h1>" in post.read()
+
     def test_build_example_index_page(self) -> None:
         """
         given the example blog directory
@@ -19,6 +37,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
+                "Cool blog name",
                 self.example_test_app_path() / Path("posts"),
                 self.example_test_app_path() / Path("templates"),
                 output_dir,
@@ -39,6 +58,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
+                "Cool blog name",
                 self.example_test_app_path() / Path("posts"),
                 self.example_test_app_path() / Path("templates"),
                 output_dir,
@@ -59,6 +79,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
+                "Cool blog name",
                 self.example_test_app_path() / Path("posts"),
                 self.example_test_app_path() / Path("templates"),
                 output_dir,
