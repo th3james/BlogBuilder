@@ -10,16 +10,19 @@ from blogbuilder.templates.template_repository import TemplateRepository
 
 @dataclass(frozen=True)
 class BlogRenderer:
+    blog_name: str
     post_repository: PostRepository
     template_repository: TemplateRepository
 
     def render_all(self) -> Iterable[RenderedBlogFile]:
-        index_page = IndexPageRenderer(self.template_repository.base_template).render(
-            self.post_repository
-        )
+        index_page = IndexPageRenderer(
+            self.template_repository.base_template, self.blog_name
+        ).render(self.post_repository)
         files: List[RenderedBlogFile] = [index_page]
         for post in self.post_repository.posts:
             files.append(
-                PostPageRenderer(self.template_repository.base_template).render(post)
+                PostPageRenderer(
+                    self.template_repository.base_template, self.blog_name
+                ).render(post)
             )
         return files

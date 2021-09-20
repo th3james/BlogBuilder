@@ -14,7 +14,7 @@ class PostPageRendererTest(TestCase):
         """
         post = build_post(slug="dope-file")
 
-        result = PostPageRenderer(Template("")).render(post)
+        result = PostPageRenderer(Template(""), "nvm").render(post)
 
         assert post.file_path == result.path
 
@@ -27,9 +27,22 @@ class PostPageRendererTest(TestCase):
         base_template = Template("<main>sup $body</main>")
         post = build_post()
 
-        result = PostPageRenderer(base_template).render(post)
+        result = PostPageRenderer(base_template, "nvm").render(post)
 
         assert (
             base_template.render({"body": PostRenderer().render(post)})
             == result.content
         )
+
+    def test_render_renders_blog_name(self) -> None:
+        """
+        given a blog name
+        it renders the blog name into the base template
+        """
+        blog_name = "totally swag blog"
+        base_template = Template("<main>sup $blog_name</main>")
+        post = build_post()
+
+        result = PostPageRenderer(base_template, blog_name).render(post)
+
+        assert blog_name in result.content

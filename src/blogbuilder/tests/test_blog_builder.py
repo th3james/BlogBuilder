@@ -16,6 +16,7 @@ class BlogBuilderTests(TestCase):
         renders the pages
         and writes them to the output directory
         """
+        blog_name = mock.Mock()
         data_dir = Path("./nope")
         templates_dir = Path("./nvm")
         output_dir = Path("./outno")
@@ -39,7 +40,7 @@ class BlogBuilderTests(TestCase):
             BlogRenderer=FakeBlogRenderer,
             OutputWriter=FakeOutputWriter,
         ):
-            BlogBuilder().build(data_dir, templates_dir, output_dir)
+            BlogBuilder().build(blog_name, data_dir, templates_dir, output_dir)
 
         FakePostRepository.load_from_directory.assert_called_once_with(data_dir)
         FakeTemplateRepository.load_from_directory.assert_called_once_with(
@@ -47,6 +48,7 @@ class BlogBuilderTests(TestCase):
         )
 
         FakeBlogRenderer.assert_called_once_with(
+            blog_name,
             FakePostRepository.load_from_directory.return_value,
             FakeTemplateRepository.load_from_directory.return_value,
         )

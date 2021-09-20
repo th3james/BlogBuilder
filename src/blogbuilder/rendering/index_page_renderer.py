@@ -10,6 +10,7 @@ from blogbuilder.templates.template import Template
 @dataclass(frozen=True)
 class IndexPageRenderer:
     base_template: Template
+    blog_name: str
 
     def render(self, recent_post_repo: RecentPostProvider) -> RenderedBlogFile:
         recent_posts = recent_post_repo.recent_posts()
@@ -18,6 +19,8 @@ class IndexPageRenderer:
         for post in recent_posts:
             content += PostRenderer().render(post)
 
-        content = self.base_template.render({"body": content})
+        content = self.base_template.render(
+            {"blog_name": self.blog_name, "body": content}
+        )
 
         return RenderedBlogFile(Path("index.html"), content)

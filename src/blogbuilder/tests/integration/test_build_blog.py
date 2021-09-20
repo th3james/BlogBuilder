@@ -25,7 +25,7 @@ class IntegrationBuildBlogTests(TestCase):
             )
 
             with open(output_dir / "index.html") as post:
-                assert "<h1>Nice post</h1>" in post.read()
+                assert "<title>Dat fancy blog</title>" in post.read()
 
     def test_build_example_index_page(self) -> None:
         """
@@ -86,4 +86,4 @@ class IntegrationBuildBlogTests(TestCase):
             )
 
             with open(output_dir / "post" / "cool-post.html") as post:
-                assert "<header>Dat blog title</header>" in post.read()
+                assert "Some arbitrary template string" in post.read()

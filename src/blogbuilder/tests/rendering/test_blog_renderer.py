@@ -14,14 +14,18 @@ class BlogRendererTest(TestCase):
         """
         it returns an enumerable containing rendered index.html
         """
+        blog_name = "cool blog name"
         post_repository = mock.MagicMock()
         base_template = Template("<main> cool $body </main>")
         template_repository = TemplateRepository(base_template)
-        blog_renderer = BlogRenderer(post_repository, template_repository)
 
+        blog_renderer = BlogRenderer(blog_name, post_repository, template_repository)
         result = blog_renderer.render_all()
 
-        assert IndexPageRenderer(base_template).render(post_repository) in result
+        assert (
+            IndexPageRenderer(base_template, blog_name).render(post_repository)
+            in result
+        )
 
     def test_renderer_returns_file_for_post(self) -> None:
         """
@@ -29,12 +33,13 @@ class BlogRendererTest(TestCase):
         and a TemplateRepository with a base template
         it returns the rendered post
         """
+        blog_name = "name of the blog, yeah"
         post = build_post()
         post_repository = PostRepository([post])
         base_template = Template("<main> cool $body </main>")
         template_repository = TemplateRepository(base_template)
 
-        blog_renderer = BlogRenderer(post_repository, template_repository)
+        blog_renderer = BlogRenderer(mock.Mock(), post_repository, template_repository)
         result = blog_renderer.render_all()
 
-        assert PostPageRenderer(base_template).render(post) in result
+        assert PostPageRenderer(base_template, blog_name).render(post) in result

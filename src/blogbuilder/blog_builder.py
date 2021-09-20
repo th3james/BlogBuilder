@@ -7,11 +7,15 @@ from blogbuilder.output_writer import OutputWriter
 
 
 class BlogBuilder:
-    def build(self, data_dir: Path, templates_dir: Path, output_dir: Path) -> None:
+    def build(
+        self, blog_name: str, data_dir: Path, templates_dir: Path, output_dir: Path
+    ) -> None:
         post_repository = PostRepository.load_from_directory(data_dir)
         templates_repository = TemplateRepository.load_from_directory(templates_dir)
 
         output_writer = OutputWriter(output_dir)
 
-        for x in BlogRenderer(post_repository, templates_repository).render_all():
+        for x in BlogRenderer(
+            blog_name, post_repository, templates_repository
+        ).render_all():
             output_writer.write(x)

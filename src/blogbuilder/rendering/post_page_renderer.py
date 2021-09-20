@@ -10,8 +10,11 @@ from blogbuilder.templates.template import Template
 @dataclass(frozen=True)
 class PostPageRenderer:
     base_template: Template
+    blog_name: str
 
     def render(self, post: Post) -> RenderedBlogFile:
         post_html = PostRenderer().render(post)
-        content = self.base_template.render({"body": post_html})
+        content = self.base_template.render(
+            {"body": post_html, "blog_name": self.blog_name}
+        )
         return RenderedBlogFile(Path(post.file_path), content)
