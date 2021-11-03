@@ -20,7 +20,7 @@ class IndexPageRenderer:
             content += PostRenderer().render(post)
 
         content = self.base_template.render(
-            {"blog_name": self.blog_name, "body": content}
+            {"page_title": self.blog_name, "blog_name": self.blog_name, "body": content}
         )
 
         return RenderedBlogFile(Path("index.html"), content)

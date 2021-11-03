@@ -37,12 +37,13 @@ class PostPageRendererTest(TestCase):
     def test_render_renders_blog_name(self) -> None:
         """
         given a blog name
-        it renders the blog name into the base template
+        it renders the blog name and post title into the base template
         """
         blog_name = "totally swag blog"
-        base_template = Template("<main>sup $blog_name</main>")
+        base_template = Template("<main>sup $page_title</main>")
         post = build_post()
 
         result = PostPageRenderer(base_template, blog_name).render(post)
 
         assert blog_name in result.content
+        assert post.title in result.content

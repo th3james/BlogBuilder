@@ -53,3 +53,15 @@ class IndexPageRendererTest(TestCase):
         result = IndexPageRenderer(base_template, blog_name).render(mock.MagicMock())
 
         assert blog_name in result.content
+
+    def test_renders_post_title(self) -> None:
+        """
+        given a template which requests post title
+        it renders with the blog title as the post title
+        """
+        blog_name = "cool blog, innit?"
+        base_template = Template("<title> I am template $page_title</title>")
+
+        result = IndexPageRenderer(base_template, blog_name).render(mock.MagicMock())
+
+        assert blog_name in result.content
