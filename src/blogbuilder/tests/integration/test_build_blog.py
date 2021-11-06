@@ -87,3 +87,22 @@ class IntegrationBuildBlogTests(TestCase):
 
             with open(output_dir / "post" / "cool-post.html") as post:
                 assert "Some arbitrary template string" in post.read()
+
+    def test_build_archive_page(self) -> None:
+        """
+        given the example blog directory
+        and an output directory
+        it renders the archive page
+        and the month of the post
+        """
+        with TemporaryDirectory() as td:
+            output_dir = Path(td)
+            BlogBuilder().build(
+                "Cool blog name",
+                self.example_test_app_path() / Path("posts"),
+                self.example_test_app_path() / Path("templates"),
+                output_dir,
+            )
+
+            with open(output_dir / "archive.html") as post:
+                assert "September 2021" in post.read()
