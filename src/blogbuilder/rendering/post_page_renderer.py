@@ -14,7 +14,7 @@ class PostPageRenderer:
 
     def render(self, post: Post) -> RenderedBlogFile:
         post_html = PostRenderer().render(post)
-        page_title = f"#{self.blog_name} | #{post.title}"
+        page_title = f"{self.blog_name} | {post.title}"
         content = self.base_template.render(
             {"blog_name": self.blog_name, "page_title": page_title, "body": post_html}
         )
