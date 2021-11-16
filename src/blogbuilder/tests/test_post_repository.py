@@ -4,7 +4,7 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 
 from blogbuilder.post_file_loader import PostFileLoader
-from blogbuilder.post_repository import PostRepository
+from blogbuilder.post_repository import Month, PostRepository
 from blogbuilder.tests.factories import build_post, build_valid_post_content
 
 
@@ -70,5 +70,24 @@ class PostRepositoryTest(TestCase):
         result_years = [p.timestamp.year for p in result]
         assert list(range(2015, 2010, -1)) == result_years
 
-    def test_archive_returns_archive(self) -> None:
-        assert False
+    def test_archive_when_empty(self) -> None:
+        """
+        given no posts
+        returns empty archive
+        """
+        assert [] == PostRepository([]).archive()
+
+    def test_archive_when_posts_are_in_different_months(self) -> None:
+        """
+        given posts in different months
+        returns them in individual entries in different months
+        """
+        november_post = build_post(timestamp=datetime.fromisoformat("2021-11-16"))
+        december_post = build_post(timestamp=datetime.fromisoformat("2021-12-09"))
+
+        result = PostRepository([november_post, december_post]).archive()
+
+        assert (
+            (Month.from_datetime(november_post.timestamp), [november_post]),
+            (Month.from_datetime(december_post.timestamp), [december_post]),
+        ) == tuple(result)

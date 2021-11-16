@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from blogbuilder.rendering.markdown_renderer import MarkdownRenderer
 from blogbuilder.post_repository import PostArchive
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
 from blogbuilder.templates.template import Template
@@ -12,10 +13,12 @@ class ArchivePageRenderer:
     blog_name: str
 
     def render(self, post_archive: PostArchive) -> RenderedBlogFile:
-        content = ""
+        md_content = ""
         for month, posts in post_archive:
-            content += month.name
+            md_content += f"## {month.name}\n\n"
             for post in posts:
-                content += post.url_path
+                md_content += f"* [{post.title}]({post.url_path})"
+
+        content = MarkdownRenderer().render(md_content)
 
         return RenderedBlogFile(Path("archive.html"), content)

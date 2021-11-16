@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Iterable, List, Protocol, Tuple
 
@@ -11,10 +12,22 @@ class RecentPostProvider(Protocol):
         ...
 
 
+@dataclass(frozen=True)
 class Month:
+    datetime: datetime
+
+    @classmethod
+    def from_datetime(cls, datetime: datetime) -> "Month":
+        month_int = datetime.month
+        if month_int < 10:
+            month_str = f"0{month_int}"
+        else:
+            month_str = f"{month_int}"
+        return Month(datetime.fromisoformat(f"{datetime.year}-{month_str}-01"))
+
     @property
     def name(self) -> str:
-        pass
+        return self.datetime.strftime("%B %Y")
 
 
 PostArchive = Iterable[Tuple[Month, Iterable[Post]]]
@@ -38,4 +51,4 @@ class PostRepository:
         return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)[:5]
 
     def archive(self) -> PostArchive:
-        return []
+        return ((Month.from_datetime(p.timestamp), (p,)) for p in self.posts)
