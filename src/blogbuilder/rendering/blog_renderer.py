@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Iterable, List
 
 from blogbuilder.post_repository import PostRepository
+from blogbuilder.rendering.archive_page_renderer import ArchivePageRenderer
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
 from blogbuilder.rendering.post_page_renderer import PostPageRenderer
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
@@ -18,7 +19,12 @@ class BlogRenderer:
         index_page = IndexPageRenderer(
             self.template_repository.base_template, self.blog_name
         ).render(self.post_repository)
-        files: List[RenderedBlogFile] = [index_page]
+
+        archive_page = ArchivePageRenderer(
+            self.template_repository.base_template, self.blog_name
+        ).render(self.post_repository)
+
+        files: List[RenderedBlogFile] = [index_page, archive_page]
         for post in self.post_repository.posts:
             files.append(
                 PostPageRenderer(

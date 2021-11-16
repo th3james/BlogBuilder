@@ -1,6 +1,7 @@
-from unittest import mock, TestCase
+from unittest import TestCase, mock
 
 from blogbuilder.post_repository import PostRepository
+from blogbuilder.rendering.archive_page_renderer import ArchivePageRenderer
 from blogbuilder.rendering.blog_renderer import BlogRenderer
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
 from blogbuilder.rendering.post_page_renderer import PostPageRenderer
@@ -43,3 +44,20 @@ class BlogRendererTest(TestCase):
         result = blog_renderer.render_all()
 
         assert PostPageRenderer(base_template, blog_name).render(post) in result
+
+    def test_renderer_all_returns_archive(self) -> None:
+        """
+        it returns an enumerable containing rendered archive.html
+        """
+        blog_name = mock.Mock()
+        post_repository = mock.MagicMock()
+        base_template = Template("<main> cool $body </main>")
+        template_repository = TemplateRepository(base_template)
+
+        blog_renderer = BlogRenderer(blog_name, post_repository, template_repository)
+        result = blog_renderer.render_all()
+
+        assert (
+            ArchivePageRenderer(base_template, blog_name).render(post_repository)
+            in result
+        )
