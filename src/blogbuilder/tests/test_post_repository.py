@@ -69,3 +69,6 @@ class PostRepositoryTest(TestCase):
         result = post_repository.recent_posts()
         result_years = [p.timestamp.year for p in result]
         assert list(range(2015, 2010, -1)) == result_years
+
+    def test_archive_returns_archive(self) -> None:
+        assert False

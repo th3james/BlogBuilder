@@ -38,4 +38,4 @@ class PostRepository:
         return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)[:5]
 
     def archive(self) -> PostArchive:
-        pass
+        return []
