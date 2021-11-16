@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List, Protocol
-
+from typing import Iterable, List, Protocol, Tuple
 
 from blogbuilder.post import Post
 from blogbuilder.post_file_loader import PostFileLoader
@@ -10,6 +9,15 @@ from blogbuilder.post_file_loader import PostFileLoader
 class RecentPostProvider(Protocol):
     def recent_posts(self) -> Iterable[Post]:
         ...
+
+
+class Month:
+    @property
+    def name(self) -> str:
+        pass
+
+
+PostArchive = Iterable[Tuple[Month, Iterable[Post]]]
 
 
 @dataclass(frozen=True)
@@ -28,3 +36,6 @@ class PostRepository:
 
     def recent_posts(self) -> Iterable[Post]:
         return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)[:5]
+
+    def archive(self) -> PostArchive:
+        pass

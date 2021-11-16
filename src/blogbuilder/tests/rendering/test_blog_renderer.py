@@ -58,6 +58,8 @@ class BlogRendererTest(TestCase):
         result = blog_renderer.render_all()
 
         assert (
-            ArchivePageRenderer(base_template, blog_name).render(post_repository)
+            ArchivePageRenderer(base_template, blog_name).render(
+                post_repository.archive.return_value
+            )
             in result
         )

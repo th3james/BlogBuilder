@@ -22,7 +22,7 @@ class BlogRenderer:
 
         archive_page = ArchivePageRenderer(
             self.template_repository.base_template, self.blog_name
-        ).render(self.post_repository)
+        ).render(self.post_repository.archive())
 
         files: List[RenderedBlogFile] = [index_page, archive_page]
         for post in self.post_repository.posts:
