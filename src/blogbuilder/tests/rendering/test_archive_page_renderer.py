@@ -35,9 +35,11 @@ class ArchivePageRendererTest(TestCase):
         month = mock.Mock()
         month.name = "Octoberry"
         post = mock.Mock()
+        post.title = "Swag post"
         post.url_path = "/posts/whatever.html"
         archive: PostArchive = ((month, [post]),)
 
         result = ArchivePageRenderer(mock.Mock(), mock.Mock()).render(archive)
 
         assert post.url_path in result.content
+        assert post.title in result.content
