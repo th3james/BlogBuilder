@@ -13,7 +13,9 @@ class ArchivePageRenderer:
 
     def render(self, post_archive: PostArchive) -> RenderedBlogFile:
         content = ""
-        for month, _ in post_archive:
+        for month, posts in post_archive:
             content += month.name
+            for post in posts:
+                content += post.url_path
 
         return RenderedBlogFile(Path("archive.html"), content)
