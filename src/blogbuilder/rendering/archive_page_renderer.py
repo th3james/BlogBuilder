@@ -22,7 +22,7 @@ class ArchivePageRenderer:
         body_content = MarkdownRenderer().render(md_content)
         content = self.base_template.render(
             {
-                "page_title": self.blog_name,
+                "page_title": f"{self.blog_name} | Archive",
                 "blog_name": self.blog_name,
                 "body": body_content,
             }

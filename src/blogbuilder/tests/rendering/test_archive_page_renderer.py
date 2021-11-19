@@ -56,3 +56,14 @@ class ArchivePageRendererTest(TestCase):
         result = ArchivePageRenderer(base_template, "nvm").render([])
 
         assert "I am template" in result.content
+
+    def test_renders_page_title(self) -> None:
+        """
+        given a blog name
+        it renders the page title as blog_name | Archive
+        """
+        base_template = Template("<title>$page_title</title>")
+
+        result = ArchivePageRenderer(base_template, "Swag blog").render([])
+
+        assert "Swag blog | Archive" in result.content
