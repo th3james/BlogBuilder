@@ -17,7 +17,7 @@ class ArchivePageRenderer:
         for month, posts in post_archive:
             md_content += f"## {month.name}\n\n"
             for post in posts:
-                md_content += f"* [{post.title}]({post.url_path})"
+                md_content += f"* [{post.title}]({post.url_path})\n"
 
         content = MarkdownRenderer().render(md_content)
 
