@@ -75,19 +75,24 @@ class PostRepositoryTest(TestCase):
         given no posts
         returns empty archive
         """
-        assert [] == PostRepository([]).archive()
+        assert [] == list(PostRepository([]).archive())
 
     def test_archive_when_posts_are_in_different_months(self) -> None:
         """
         given posts in different months
         returns them in individual entries in different months
         """
-        november_post = build_post(timestamp=datetime.fromisoformat("2021-11-16"))
-        december_post = build_post(timestamp=datetime.fromisoformat("2021-12-09"))
+        november_post = build_post(
+            slug="november", timestamp=datetime.fromisoformat("2021-11-16")
+        )
+        december_post = build_post(
+            slug="december", timestamp=datetime.fromisoformat("2021-12-09")
+        )
 
-        result = PostRepository([november_post, december_post]).archive()
+        result = list(PostRepository([november_post, december_post]).archive())
 
-        assert (
-            (Month.from_datetime(november_post.timestamp), [november_post]),
-            (Month.from_datetime(december_post.timestamp), [december_post]),
-        ) == tuple(result)
+        assert [
+            Month.from_datetime(november_post.timestamp),
+            Month.from_datetime(december_post.timestamp),
+        ] == [r[0] for r in result]
+        assert [["november"], ["december"]] == [[p.slug for p in r[1]] for r in result]
