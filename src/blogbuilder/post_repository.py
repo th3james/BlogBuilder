@@ -1,3 +1,4 @@
+from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -51,4 +52,9 @@ class PostRepository:
         return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)[:5]
 
     def archive(self) -> PostArchive:
-        return ((Month.from_datetime(p.timestamp), (p,)) for p in self.posts)
+        collection: dict[Month, list[Post]] = defaultdict(list)
+        for p in self.posts:
+            month = Month.from_datetime(p.timestamp)
+            collection[month] = collection[month] + [p]
+
+        return [(m, collection[m]) for m in collection.keys()]

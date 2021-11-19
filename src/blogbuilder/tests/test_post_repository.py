@@ -96,3 +96,26 @@ class PostRepositoryTest(TestCase):
             Month.from_datetime(december_post.timestamp),
         ] == [r[0] for r in result]
         assert [["november"], ["december"]] == [[p.slug for p in r[1]] for r in result]
+
+    def test_archive_when_posts_must_be_grouped_by_month(self) -> None:
+        """
+        given posts in the same month
+        returns them in grouped under the same month
+        """
+        post_1 = build_post(
+            slug="post 1", timestamp=datetime.fromisoformat("2021-11-16")
+        )
+        post_2 = build_post(
+            slug="post 2", timestamp=datetime.fromisoformat("2021-11-19")
+        )
+
+        result = list(PostRepository([post_1, post_2]).archive())
+
+        assert [Month.from_datetime(post_1.timestamp)] == [r[0] for r in result]
+        assert [["post 1", "post 2"]] == [[p.slug for p in r[1]] for r in result]
+
+    def test_archive_sorts_months(self) -> None:
+        assert False
+
+    def test_archive_sorts_posts(self) -> None:
+        assert False
