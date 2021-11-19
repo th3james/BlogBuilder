@@ -48,12 +48,15 @@ class PostRepository:
 
         return cls(posts)
 
+    def _sort_posts(self) -> list[Post]:
+        return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)
+
     def recent_posts(self) -> Iterable[Post]:
-        return sorted(self.posts, key=lambda p: p.timestamp, reverse=True)[:5]
+        return self._sort_posts()[:5]
 
     def archive(self) -> PostArchive:
         collection: dict[Month, list[Post]] = defaultdict(list)
-        for p in self.posts:
+        for p in self._sort_posts():
             month = Month.from_datetime(p.timestamp)
             collection[month] = collection[month] + [p]
 

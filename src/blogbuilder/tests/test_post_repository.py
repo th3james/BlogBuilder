@@ -79,8 +79,9 @@ class PostRepositoryTest(TestCase):
 
     def test_archive_when_posts_are_in_different_months(self) -> None:
         """
-        given posts in different months
-        returns them in individual entries in different months
+        given unsorted posts in different months
+        returns them in individual entries
+        in newest-first month order
         """
         november_post = build_post(
             slug="november", timestamp=datetime.fromisoformat("2021-11-16")
@@ -89,33 +90,28 @@ class PostRepositoryTest(TestCase):
             slug="december", timestamp=datetime.fromisoformat("2021-12-09")
         )
 
-        result = list(PostRepository([november_post, december_post]).archive())
+        result = list(PostRepository([december_post, november_post]).archive())
 
         assert [
-            Month.from_datetime(november_post.timestamp),
             Month.from_datetime(december_post.timestamp),
+            Month.from_datetime(november_post.timestamp),
         ] == [r[0] for r in result]
-        assert [["november"], ["december"]] == [[p.slug for p in r[1]] for r in result]
+        assert [["december"], ["november"]] == [[p.slug for p in r[1]] for r in result]
 
     def test_archive_when_posts_must_be_grouped_by_month(self) -> None:
         """
-        given posts in the same month
+        given unsorted posts in the same month
         returns them in grouped under the same month
+        in newest-first order
         """
         post_1 = build_post(
-            slug="post 1", timestamp=datetime.fromisoformat("2021-11-16")
+            slug="older", timestamp=datetime.fromisoformat("2021-11-16")
         )
         post_2 = build_post(
-            slug="post 2", timestamp=datetime.fromisoformat("2021-11-19")
+            slug="newer", timestamp=datetime.fromisoformat("2021-11-19")
         )
 
         result = list(PostRepository([post_1, post_2]).archive())
 
         assert [Month.from_datetime(post_1.timestamp)] == [r[0] for r in result]
-        assert [["post 1", "post 2"]] == [[p.slug for p in r[1]] for r in result]
-
-    def test_archive_sorts_months(self) -> None:
-        assert False
-
-    def test_archive_sorts_posts(self) -> None:
-        assert False
+        assert [["newer", "older"]] == [[p.slug for p in r[1]] for r in result]
