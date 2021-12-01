@@ -18,7 +18,7 @@ templates/
   - base.tmpl
 ```
 
-See <./src/blogbuilder/tests/example-test-app/> for an example.
+See `src/blogbuilder/tests/example-test-app/` for an example.
 
 
 ## Dev scripts
