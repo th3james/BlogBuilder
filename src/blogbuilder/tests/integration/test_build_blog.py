@@ -11,16 +11,13 @@ class IntegrationBuildBlogTests(TestCase):
 
     def test_renders_given_blog_name(self) -> None:
         """
-        given a blog name
+        given a blog name in the example dir
         it renders the blog name
         """
-        blog_name = "Dat fancy blog"
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                blog_name,
-                self.example_test_app_path() / Path("posts"),
-                self.example_test_app_path() / Path("templates"),
+                self.example_test_app_path(),
                 output_dir,
             )
 
@@ -37,9 +34,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                "Cool blog name",
-                self.example_test_app_path() / Path("posts"),
-                self.example_test_app_path() / Path("templates"),
+                self.example_test_app_path(),
                 output_dir,
             )
 
@@ -58,9 +53,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                "Cool blog name",
-                self.example_test_app_path() / Path("posts"),
-                self.example_test_app_path() / Path("templates"),
+                self.example_test_app_path(),
                 output_dir,
             )
 
@@ -79,9 +72,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                "Cool blog name",
-                self.example_test_app_path() / Path("posts"),
-                self.example_test_app_path() / Path("templates"),
+                self.example_test_app_path(),
                 output_dir,
             )
 
@@ -98,9 +89,7 @@ class IntegrationBuildBlogTests(TestCase):
         with TemporaryDirectory() as td:
             output_dir = Path(td)
             BlogBuilder().build(
-                "Cool blog name",
-                self.example_test_app_path() / Path("posts"),
-                self.example_test_app_path() / Path("templates"),
+                self.example_test_app_path(),
                 output_dir,
             )
 

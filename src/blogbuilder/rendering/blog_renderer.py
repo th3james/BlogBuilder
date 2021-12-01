@@ -1,34 +1,34 @@
 from dataclasses import dataclass
 from typing import Iterable, List
 
-from blogbuilder.post_repository import PostRepository
+from blogbuilder.blog_data_reader import BlogDataReader
 from blogbuilder.rendering.archive_page_renderer import ArchivePageRenderer
 from blogbuilder.rendering.index_page_renderer import IndexPageRenderer
 from blogbuilder.rendering.post_page_renderer import PostPageRenderer
 from blogbuilder.rendering.rendered_blog_file import RenderedBlogFile
-from blogbuilder.templates.template_repository import TemplateRepository
 
 
 @dataclass(frozen=True)
 class BlogRenderer:
-    blog_name: str
-    post_repository: PostRepository
-    template_repository: TemplateRepository
+    blog_data_reader: BlogDataReader
 
     def render_all(self) -> Iterable[RenderedBlogFile]:
         index_page = IndexPageRenderer(
-            self.template_repository.base_template, self.blog_name
-        ).render(self.post_repository)
+            self.blog_data_reader.template_repository.base_template,
+            self.blog_data_reader.blog_name,
+        ).render(self.blog_data_reader.post_repository)
 
         archive_page = ArchivePageRenderer(
-            self.template_repository.base_template, self.blog_name
-        ).render(self.post_repository.archive())
+            self.blog_data_reader.template_repository.base_template,
+            self.blog_data_reader.blog_name,
+        ).render(self.blog_data_reader.post_repository.archive())
 
         files: List[RenderedBlogFile] = [index_page, archive_page]
-        for post in self.post_repository.posts:
+        for post in self.blog_data_reader.post_repository.posts:
             files.append(
                 PostPageRenderer(
-                    self.template_repository.base_template, self.blog_name
+                    self.blog_data_reader.template_repository.base_template,
+                    self.blog_data_reader.blog_name,
                 ).render(post)
             )
         return files

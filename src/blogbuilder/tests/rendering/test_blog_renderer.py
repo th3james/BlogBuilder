@@ -1,5 +1,6 @@
 from unittest import TestCase, mock
 
+from blogbuilder.blog_data_reader import BlogDataReader
 from blogbuilder.post_repository import PostRepository
 from blogbuilder.rendering.archive_page_renderer import ArchivePageRenderer
 from blogbuilder.rendering.blog_renderer import BlogRenderer
@@ -15,16 +16,20 @@ class BlogRendererTest(TestCase):
         """
         it returns an enumerable containing rendered index.html
         """
-        blog_name = "cool blog name"
-        post_repository = mock.MagicMock()
         base_template = Template("<main> cool $body </main>")
-        template_repository = TemplateRepository(base_template)
+        blog_data_reader = BlogDataReader(
+            blog_name="cool blog name",
+            post_repository=mock.MagicMock(),
+            template_repository=TemplateRepository(base_template),
+        )
 
-        blog_renderer = BlogRenderer(blog_name, post_repository, template_repository)
+        blog_renderer = BlogRenderer(blog_data_reader)
         result = blog_renderer.render_all()
 
         assert (
-            IndexPageRenderer(base_template, blog_name).render(post_repository)
+            IndexPageRenderer(base_template, blog_data_reader.blog_name).render(
+                blog_data_reader.post_repository
+            )
             in result
         )
 
@@ -34,31 +39,39 @@ class BlogRendererTest(TestCase):
         and a TemplateRepository with a base template
         it returns the rendered post
         """
-        blog_name = "name of the blog, yeah"
         post = build_post()
-        post_repository = PostRepository([post])
         base_template = Template("<main> cool $body </main>")
-        template_repository = TemplateRepository(base_template)
+        blog_data_reader = BlogDataReader(
+            blog_name="hat",
+            post_repository=PostRepository([post]),
+            template_repository=TemplateRepository(base_template),
+        )
 
-        blog_renderer = BlogRenderer(mock.Mock(), post_repository, template_repository)
+        blog_renderer = BlogRenderer(blog_data_reader)
         result = blog_renderer.render_all()
 
-        assert PostPageRenderer(base_template, blog_name).render(post) in result
+        assert (
+            PostPageRenderer(base_template, blog_data_reader.blog_name).render(post)
+            in result
+        )
 
     def test_renderer_all_returns_archive(self) -> None:
         """
         it returns an enumerable containing rendered archive.html
         """
-        blog_name = mock.Mock()
-        post_repository = mock.MagicMock()
         base_template = Template("<main> cool $body </main>")
-        template_repository = TemplateRepository(base_template)
+        post_repository = mock.MagicMock()
+        blog_data_reader = BlogDataReader(
+            blog_name=mock.Mock(),
+            post_repository=post_repository,
+            template_repository=TemplateRepository(base_template),
+        )
 
-        blog_renderer = BlogRenderer(blog_name, post_repository, template_repository)
+        blog_renderer = BlogRenderer(blog_data_reader)
         result = blog_renderer.render_all()
 
         assert (
-            ArchivePageRenderer(base_template, blog_name).render(
+            ArchivePageRenderer(base_template, blog_data_reader.blog_name).render(
                 post_repository.archive.return_value
             )
             in result
