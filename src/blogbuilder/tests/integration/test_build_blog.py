@@ -95,3 +95,19 @@ class IntegrationBuildBlogTests(TestCase):
 
             with open(output_dir / "archive.html") as post:
                 assert "September 2021" in post.read()
+
+    def test_build_about_page(self) -> None:
+        """
+        given the example blog directory
+        and an output directory
+        it renders the about page
+        """
+        with TemporaryDirectory() as td:
+            output_dir = Path(td)
+            BlogBuilder().build(
+                self.example_test_app_path(),
+                output_dir,
+            )
+
+            with open(output_dir / "about.html") as post:
+                assert "About cool blog" in post.read()

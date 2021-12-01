@@ -10,13 +10,17 @@ class BlogDataReader:
     blog_name: str
     post_repository: PostRepository
     template_repository: TemplateRepository
+    about_text: str
 
     @classmethod
     def load_from_directory(cls, input_dir: Path) -> "BlogDataReader":
         blog_name = (input_dir / "blog_name.txt").read_text().strip()
+
         post_repository = PostRepository.load_from_directory(input_dir / "posts")
         template_repository = TemplateRepository.load_from_directory(
             input_dir / "templates"
         )
 
-        return cls(blog_name, post_repository, template_repository)
+        about_text = (input_dir / "about.md").read_text().strip()
+
+        return cls(blog_name, post_repository, template_repository, about_text)
