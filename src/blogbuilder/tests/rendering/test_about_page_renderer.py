@@ -17,7 +17,7 @@ class AboutPageRendererTest(TestCase):
 
     def test_renders_about_text_as_html(self) -> None:
         """
-        it returns a file with path about.html
+        it returns a file with the content as the markdown rendered about text
         """
         about_text = "# Markdown\n* is fun"
         result = AboutPageRenderer(Template("$body"), "nvm").render(about_text)
