@@ -25,7 +25,7 @@ class PostFileLoader:
         )
 
     def _parse_attribute(self, attribute: str, post_str: str) -> str:
-        matches = re.findall(fr"^{attribute}: (.*)\n", post_str, flags=re.MULTILINE)
+        matches = re.findall(rf"^{attribute}: (.*)\n", post_str, flags=re.MULTILINE)
         if len(matches) == 0:
             raise InvalidPostDefinitionError(
                 f"Couldn't parse required field '{attribute}' in:\n" + post_str
