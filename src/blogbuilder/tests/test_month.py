@@ -12,7 +12,7 @@ class MonthTest(TestCase):
         """
         mid_month = datetime.fromisoformat("2021-03-09")
         month_start = datetime.fromisoformat("2021-03-01")
-        assert month_start == Month.from_datetime(mid_month).datetime
+        assert month_start == Month.from_datetime(mid_month).dt
 
     def test_name_returns_the_name_and_year(self) -> None:
         """

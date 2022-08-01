@@ -15,20 +15,20 @@ class RecentPostProvider(Protocol):
 
 @dataclass(frozen=True)
 class Month:
-    datetime: datetime
+    dt: datetime
 
     @classmethod
-    def from_datetime(cls, datetime: datetime) -> "Month":
-        month_int = datetime.month
+    def from_datetime(cls, dt: datetime) -> "Month":
+        month_int = dt.month
         if month_int < 10:
             month_str = f"0{month_int}"
         else:
             month_str = f"{month_int}"
-        return Month(datetime.fromisoformat(f"{datetime.year}-{month_str}-01"))
+        return Month(datetime.fromisoformat(f"{dt.year}-{month_str}-01"))
 
     @property
     def name(self) -> str:
-        return self.datetime.strftime("%B %Y")
+        return self.dt.strftime("%B %Y")
 
 
 PostArchive = Iterable[Tuple[Month, Iterable[Post]]]
