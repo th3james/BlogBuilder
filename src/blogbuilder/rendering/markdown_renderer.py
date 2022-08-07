@@ -1,6 +1,8 @@
-from commonmark import commonmark
+import mistletoe
+
+from blogbuilder.rendering.pygments_renderer import PygmentsRenderer
 
 
 class MarkdownRenderer:
     def render(self, markdown_str: str) -> str:
-        return commonmark(markdown_str)
+        return mistletoe.markdown(markdown_str, PygmentsRenderer)
