@@ -10,6 +10,7 @@ from pygments.formatters.html import HtmlFormatter
 class PygmentsRenderer(HTMLRenderer):
     formatter = HtmlFormatter()
     formatter.noclasses = True
+    formatter.wrapcode = True
 
     def __init__(self, *extras, style="default") -> None:
         super().__init__(*extras)
