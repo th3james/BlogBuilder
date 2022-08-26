@@ -1,3 +1,4 @@
+# type: ignore
 from mistletoe import HTMLRenderer
 
 from pygments import highlight
